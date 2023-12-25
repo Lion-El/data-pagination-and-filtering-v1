@@ -51,12 +51,13 @@ function addPagination(list) {
 
 
 paginationUl.addEventListener('click', (e) => {
-   let button = e.target;
-   let pageNumber = button.textContent;
+   const activeButton = paginationUl.querySelector(".active");
+   const buttonClicked = e.target.closest("button");
+   let pageNumber = buttonClicked.textContent;
 
-   if (e.target === 'button') {
-      document.querySelector('.active').className = '';
-      e.target.className = 'active';
+   if (buttonClicked) {
+      activeButton.classList.remove('.active');
+      buttonClicked.classList.add('active');
       showpage(data, pageNumber);
    }
 })
