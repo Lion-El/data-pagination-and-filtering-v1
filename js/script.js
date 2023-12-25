@@ -17,7 +17,7 @@ function showpage(list, page) {
    ul.innerHTML = '';
 
    for (let i=1; i <= list.length; i++) {
-      if (i >= startIndex && i < endIndex) {
+      if (i >= startIndex && i <= endIndex) {
          let student = `<li class="student-item cf">
                            <div class="student-details">
                            <img class="avatar" src=${data[i].picture.medium} alt="Profile Picture">
@@ -45,7 +45,7 @@ function addPagination(list) {
  for (let i=1; i <= numOfPages; i++) {
    let button = `<li><button type="button">${[i]}</button></li>`;
    paginationUl.insertAdjacentHTML('beforeend', button);
-   if (button.textContent === 1) {
+   if (button.textContent === '1') {
       button.classList.add('active');
    }
    
