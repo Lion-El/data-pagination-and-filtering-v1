@@ -60,5 +60,5 @@ function addPagination(list) {
 
 
 // Call functions
-showpage(data, 1);
+showpage(data, 3);
 addPagination(data);
