@@ -45,7 +45,7 @@ function addPagination(list) {
  for (let i=1; i <= numOfPages; i++) {
    let button = `<li><button type="button">${[i]}</button></li>`;
    paginationUl.insertAdjacentHTML('beforeend', button);
-   if (button.textContent === '1') {
+   if (i === 1) {
       button.classList.add('active');
    }
    
