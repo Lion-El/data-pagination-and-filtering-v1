@@ -46,7 +46,7 @@ function addPagination(list) {
    let button = `<li><button type="button">${[i]}</button></li>`;
    paginationUl.insertAdjacentHTML('beforeend', button);
    if (i === 1) {
-      button.classList.add('active');
+      paginationUl.querySelector('button').classList.add('active');
    }
    
  }
