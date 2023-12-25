@@ -16,7 +16,7 @@ function showpage(list, page) {
    const ul = document.querySelector('.student-list');
    ul.innerHTML = '';
 
-   for (let i=0; i <= list.length; i++) {
+   for (let i=0; i <= list.length-1; i++) {
       if (i >= startIndex && i < endIndex) {
          let student = `<li class="student-item cf">
                            <div class="student-details">
