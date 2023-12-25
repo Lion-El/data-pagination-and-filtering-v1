@@ -49,11 +49,12 @@ function addPagination(list) {
  }
 }
 
+
 paginationUl.addEventListener('click', (e) => {
    let button = e.target;
    let pageNumber = button.textContent;
 
-   if (e.target === 'BUTTON') {
+   if (e.target === 'button') {
       document.querySelector('.active').className = '';
       e.target.className = 'active';
       showpage(data, pageNumber);
