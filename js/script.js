@@ -45,7 +45,10 @@ function addPagination(list) {
  for (let i=1; i <= numOfPages; i++) {
    let button = `<li><button type="button">${[i]}</button></li>`;
    paginationUl.insertAdjacentHTML('beforeend', button);
-   paginationUl.firstElementChild.className = 'active';
+   if (button.textContent === 1) {
+      button.classList.add('active');
+   }
+   
  }
 }
 
@@ -56,7 +59,7 @@ paginationUl.addEventListener('click', (e) => {
    let pageNumber = buttonClicked.textContent;
 
    if (buttonClicked) {
-      activeButton.classList.remove('.active');
+      activeButton.classList.remove('active');
       buttonClicked.classList.add('active');
       showpage(data, pageNumber);
    }
