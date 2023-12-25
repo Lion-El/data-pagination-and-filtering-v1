@@ -16,8 +16,8 @@ function showpage(list, page) {
    const ul = document.querySelector('.student-list');
    ul.innerHTML = '';
 
-   for (let i=1; i <= list.length; i++) {
-      if (i >= startIndex && i <= endIndex) {
+   for (let i=0; i <= list.length; i++) {
+      if (i >= startIndex && i < endIndex) {
          let student = `<li class="student-item cf">
                            <div class="student-details">
                            <img class="avatar" src=${data[i].picture.medium} alt="Profile Picture">
