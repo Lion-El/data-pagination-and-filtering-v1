@@ -27,16 +27,16 @@ function showpage(list, page) {
    for (let i=1; i <= list.length; i++) {
       if (i >= startIndex && i < endIndex) {
          let student = `<li class="student-item cf">
-                        <div class="student-details">
-                        <img class="avatar" src=${data[i].picture.medium} alt="Profile Picture">
-                        <h3>${data[i].name.first} ${data[i].name.last}</h3>
-                        <span class="email">${data[i].email}</span>
-                        </div>
-                        <div class="joined-details">
-                        <span class="date">Joined ${data[i].registered.date}</span>
-                        </div>
-                     </li>`;
-         ul.insertAdjacentElement("beforeend", student);
+                           <div class="student-details">
+                           <img class="avatar" src=${data[i].picture.medium} alt="Profile Picture">
+                           <h3>${data[i].name.first} ${data[i].name.last}</h3>
+                           <span class="email">${data[i].email}</span>
+                           </div>
+                           <div class="joined-details">
+                           <span class="date">Joined ${data[i].registered.date}</span>
+                           </div>
+                        </li>`;
+         ul.insertAdjacentHTML("beforeend", student);
       }
    }
 }
