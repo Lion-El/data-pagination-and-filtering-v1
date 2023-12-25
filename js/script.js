@@ -40,15 +40,25 @@ function showpage(list, page) {
       }
    }
 }
-showpage(data, 2);
+
 
 /*
 Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
 function addPagination(list) {
+ const numOfPages = math.ceil(list.length / studentsPerPage);
+ const ul = document.querySelector('.link-list');
+ ul.innerHTML = '';
 
+ for (let i=1; i <= numOfPages; i++) {
+   let button = `<li><button type="button">${[i]}</button></li>`;
+   ul.insertAdjacentHTML('beforeend', button);
+   ul.firstElementChild.className = 'active';
+ }
 }
 
 
 // Call functions
+showpage(data, 1);
+addPagination(data)
