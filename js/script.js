@@ -40,7 +40,7 @@ function showpage(list, page) {
       }
    }
 }
-showpage(data, 1);
+showpage(data, 2);
 
 /*
 Create the `addPagination` function
