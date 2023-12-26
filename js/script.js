@@ -2,7 +2,7 @@
 Treehouse Techdegree:
 FSJS Project 2 - Data Pagination and Filtering
 */
-const header = document.querySelector('.header');
+const header = document.querySelector('header');
 const studentUl = document.querySelector('.student-list');
 const paginationUl = document.querySelector('.link-list');
 const studentsPerPage = 9;
@@ -13,6 +13,9 @@ const searchForm = `<label for="search" class="student-search">
                         <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
                    </label>`;
 header.insertAdjacentHTML('beforeend', searchForm);
+
+const input = document.querySelector('#search');
+const button = document.querySelector('button[type="button"]');
 
 
 /*
@@ -71,7 +74,7 @@ function addPagination(list) {
 });
 }
 
-header.addEventListener('keyup', (e) => {
+input.addEventListener('keyup', (e) => {
    const studentSearch = [];
    const userInput = e.target.value.toLowerCase();
    for (let i=0; i < data.length; i++) {
@@ -90,7 +93,27 @@ header.addEventListener('keyup', (e) => {
    }
 });
 
+button.addEventListener('click', (e) => {
+      const studentSearch = [];
+      const searchButton = e.target.closest('button');
+      let userInput = searchButton.previousElementSibling.value.toLowerCase();
+      for (let i=0; i < data.length; i++) {
+         let currentStudent = `${data[i].name.first.toLowerCase()} ${data[i].name.last.toLowerCase()}`;
+         if (currentStudent.includes(userInput)) {
+            studentSearch.push(data[i]);
+         }
+      }
+
+      if (studentSearch.length > 0) {
+         showpage(studentSearch, 1);
+         addPagination(studentSearch);
+      } else {
+         studentUl.innerHTML = `<h3>No results found</h3>`;
+         paginationUl.innerHTML = '';
+      }
+});
+
 
 // Call functions
-// showpage(data, 1);
+showpage(data, 1);
 addPagination(data);
