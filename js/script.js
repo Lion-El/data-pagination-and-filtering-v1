@@ -2,8 +2,18 @@
 Treehouse Techdegree:
 FSJS Project 2 - Data Pagination and Filtering
 */
+const header = document.querySelector('.header');
+const studentUl = document.querySelector('.student-list');
 const paginationUl = document.querySelector('.link-list');
 const studentsPerPage = 9;
+
+const searchForm = `<label for="search" class="student-search">
+                        <span>Search by name</span>
+                        <input id="search" placeholder="Search by name...">
+                        <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
+                   </label>`;
+header.insertAdjacentHTML('beforeend', searchForm);
+
 
 /*
 Create the `showPage` function
@@ -12,23 +22,21 @@ This function will create and insert/append the elements needed to display a "pa
 function showpage(list, page) {
    let startIndex = (page * studentsPerPage) - studentsPerPage;
    let endIndex = page * studentsPerPage;
-
-   const ul = document.querySelector('.student-list');
-   ul.innerHTML = '';
+   studentUl.innerHTML = '';
 
    for (let i=0; i <= list.length-1; i++) {
       if (i >= startIndex && i < endIndex) {
          let student = `<li class="student-item cf">
                            <div class="student-details">
-                           <img class="avatar" src=${data[i].picture.medium} alt="Profile Picture">
-                           <h3>${data[i].name.first} ${data[i].name.last}</h3>
-                           <span class="email">${data[i].email}</span>
+                           <img class="avatar" src=${list[i].picture.medium} alt="Profile Picture">
+                           <h3>${list[i].name.first} ${list[i].name.last}</h3>
+                           <span class="email">${list[i].email}</span>
                            </div>
                            <div class="joined-details">
-                           <span class="date">Joined ${data[i].registered.date}</span>
+                           <span class="date">Joined ${list[i].registered.date}</span>
                            </div>
                         </li>`;
-         ul.insertAdjacentHTML("beforeend", student);
+         studentUl.insertAdjacentHTML("beforeend", student);
       }
    }
 }
@@ -48,12 +56,9 @@ function addPagination(list) {
    if (i === 1) {
       paginationUl.querySelector('button').classList.add('active');
    }
-   
  }
-}
 
-
-paginationUl.addEventListener('click', (e) => {
+ paginationUl.addEventListener('click', (e) => {
    const activeButton = paginationUl.querySelector(".active");
    const buttonClicked = e.target.closest("button");
    let pageNumber = buttonClicked.textContent;
@@ -61,11 +66,31 @@ paginationUl.addEventListener('click', (e) => {
    if (buttonClicked) {
       activeButton.classList.remove('active');
       buttonClicked.classList.add('active');
-      showpage(data, pageNumber);
+      showpage(list, pageNumber);
    }
-})
+});
+}
+
+header.addEventListener('keyup', (e) => {
+   const studentSearch = [];
+   const userInput = e.target.value.toLowerCase();
+   for (let i=0; i < data.length; i++) {
+      let currentStudent = `${data[i].name.first.toLowerCase()} ${data[i].name.last.toLowerCase()}`;
+      if (currentStudent.includes(userInput)) {
+         studentSearch.push(data[i]);
+      }  
+   }
+
+   if (studentSearch.length > 0) {
+      showpage(studentSearch, 1);
+      addPagination(studentSearch);
+   } else {
+      studentUl.innerHTML = `<h3>No results found</h3>`;
+      paginationUl.innerHTML = '';
+   }
+});
 
 
 // Call functions
-showpage(data, 1);
+// showpage(data, 1);
 addPagination(data);
