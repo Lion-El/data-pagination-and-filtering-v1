@@ -2,25 +2,24 @@
 Treehouse Techdegree:
 FSJS Project 2 - Data Pagination and Filtering
 */
+
+// This app provides a list of students with contact details and information with a search/filter facility.
+
 const header = document.querySelector('header');
 const studentUl = document.querySelector('.student-list');
 const paginationUl = document.querySelector('.link-list');
-const studentsPerPage = 9;
-
 const searchForm = `<label for="search" class="student-search">
-                        <span>Search by name</span>
-                        <input id="search" placeholder="Search by name...">
-                        <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
+                     <span>Search by name</span>
+                     <input id="search" placeholder="Search by name...">
+                     <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
                    </label>`;
 header.insertAdjacentHTML('beforeend', searchForm);
-
 const input = document.querySelector('#search');
 const button = document.querySelector('button[type="button"]');
-
+const studentsPerPage = 9;
 
 /*
-Create the `showPage` function
-This function will create and insert/append the elements needed to display a "page" of nine students
+Render student objects to the page
 */
 function showpage(list, page) {
    let startIndex = (page * studentsPerPage) - studentsPerPage;
@@ -46,13 +45,12 @@ function showpage(list, page) {
 
 
 /*
-Create the `addPagination` function
-This function will create and insert/append the elements needed for the pagination buttons
+function for rendering pagination buttons to the page.
 */
 function addPagination(list) {
  const numOfPages = Math.ceil(list.length / studentsPerPage);
  paginationUl.innerHTML = '';
-
+ 
  for (let i=1; i <= numOfPages; i++) {
    let button = `<li><button type="button">${[i]}</button></li>`;
    paginationUl.insertAdjacentHTML('beforeend', button);
@@ -60,20 +58,24 @@ function addPagination(list) {
       paginationUl.querySelector('button').classList.add('active');
    }
  }
-
- paginationUl.addEventListener('click', (e) => {
-   const activeButton = paginationUl.querySelector(".active");
-   const buttonClicked = e.target.closest("button");
-   let pageNumber = buttonClicked.textContent;
-
-   if (buttonClicked) {
-      activeButton.classList.remove('active');
-      buttonClicked.classList.add('active');
-      showpage(list, pageNumber);
-   }
-});
+ const li = document.getElementsByTagName('li');
+ // render corresponding student objects to the page, hightlight page number
+ for (let i=0; i < li.length; i++) {
+   li[i].addEventListener('click', (e) => {
+      const activeButton = paginationUl.querySelector(".active");
+      const buttonClicked = e.target.closest("button");
+   
+      if (buttonClicked) {
+         let pageNumber = buttonClicked.textContent;
+         activeButton.classList.remove('active');
+         buttonClicked.classList.add('active');
+         showpage(list, pageNumber);
+      }
+    });
+ }
 }
 
+//Search and filter student objects - keyboard events
 input.addEventListener('keyup', (e) => {
    const studentSearch = [];
    const userInput = e.target.value.toLowerCase();
@@ -93,6 +95,7 @@ input.addEventListener('keyup', (e) => {
    }
 });
 
+//Search and filter student objects - mouse events
 button.addEventListener('click', (e) => {
       const studentSearch = [];
       const searchButton = e.target.closest('button');
